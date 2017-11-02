@@ -9,5 +9,6 @@
       "react/sort-comp": 0,
       "camelcase": 0,
       "no-underscore-dangle": 0,
+      "no-case-declarations": 0,
   }
 }

@@ -5,18 +5,16 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-
+  ids: []
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
-
   switch (type) {
     case FETCH_PHONES_SUCCESS:
-      const newValues = R.indexBy(R.prop('id'), payload);
-      return R.merge(state, newValues);
-
+      return R.merge(state, {
+        ids: R.pluck('id', payload)
+      });
     default:
       return state;
   }
-
 };
