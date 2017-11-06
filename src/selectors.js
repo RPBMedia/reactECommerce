@@ -1,12 +1,12 @@
 import R from 'ramda';
 
-const getPhoneById = (state, id) => R.prop(id, state.phones);
+export const getPhoneById = (state, id) => R.prop(id, state.phones);
 
 export const getPhones = state => {
   const phones = R.map(id => getPhoneById(state, id), state.phonesPage.ids);
   return phones;
 };
 
-export const getRenderedPhonesLength = state => {  
+export const getRenderedPhonesLength = state => {
   return R.length(state.phonesPage.ids);
 };
