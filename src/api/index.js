@@ -1,12 +1,19 @@
 import R from 'ramda';
+import request from 'superagent';
 
 import phones from './mockPhones';
 import categories from './mockCategories';
 
 export const fetchPhones = async () => {
-  return new Promise((resolve) => {
-    resolve(phones);
-  });
+
+  //Return mocked Data locally
+  // return new Promise((resolve) => {
+  //   resolve(phones);
+  // });
+
+  //Dynamic request to a mock API on the web
+  const { body } = await request.get('http://www.mocky.io/v2/5a008ee03000003a0bfabd07');
+  return body.phones;
 };
 
 export const loadMorePhones = async ({ offset }) => {
