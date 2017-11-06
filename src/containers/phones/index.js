@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import R from 'ramda';
-import { fetchPhones, loadMorePhones, addPhoneToBasket } from '../../actions';
+import {
+  fetchPhones,
+  loadMorePhones,
+  addPhoneToBasket,
+  fetchCategories
+} from '../../actions';
 import { getPhones } from '../../selectors';
 
 class Phones extends Component {
   componentDidMount() {
     this.props.fetchPhones();
+    this.props.fetchCategories();
   }
 
   renderPhone(phone, index) {
@@ -67,12 +73,13 @@ class Phones extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  phones: getPhones(state)
+const mapStateToProps = (state, ownProps) => ({
+  phones: getPhones(state, ownProps)
 });
 
 export default connect(mapStateToProps, {
   fetchPhones,
   loadMorePhones,
-  addPhoneToBasket
+  addPhoneToBasket,
+  fetchCategories
 })(Phones);

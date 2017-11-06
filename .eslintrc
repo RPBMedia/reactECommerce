@@ -10,5 +10,6 @@
       "camelcase": 0,
       "no-underscore-dangle": 0,
       "no-case-declarations": 0,
+      "quote-props": 0,
   }
 }
