@@ -9,6 +9,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import Layout from './containers/layout';
 import Phones from './containers/phones';
+import Phone from './containers/phone';
+
 import './main.css';
 import reducers from './reducers';
 
@@ -25,6 +27,8 @@ ReactDOM.render(
       <Route component={Layout}>
         <Route path='/' component={Phones} />
       </Route>
+
+      <Route path='/phones/:id' component={Phone} />
 
     </Router>
   </Provider>,
