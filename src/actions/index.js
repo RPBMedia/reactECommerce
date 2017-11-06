@@ -17,7 +17,12 @@ import {
 
   FETCH_CATEGORIES_START,
   FETCH_CATEGORIES_SUCCESS,
-  FETCH_CATEGORIES_FAILURE
+  FETCH_CATEGORIES_FAILURE,
+
+  REMOVE_PHONE_FROM_BASKET,
+
+  CLEAN_BASKET,
+  BASKET_CHECKOUT
 } from './types';
 import {
   fetchPhones as fetchPhonesApi,
@@ -119,4 +124,28 @@ export const fetchCategories = () => async dispatch => {
       error: true
     });
   }
+};
+
+export const removePhoneFromBasket = id => async dispatch => {
+  dispatch({
+    type: REMOVE_PHONE_FROM_BASKET,
+    payload: id
+  });
+};
+
+export const cleanBasket = () => dispatch => {
+  dispatch({
+    type: CLEAN_BASKET
+  });
+};
+
+export const basketCheckout = phones => dispatch => {
+
+  //No checkout mechanism implemented, but action will still be fired
+  //in the case of future implementation
+  alert(JSON.stringify(phones));
+  dispatch({
+    type: BASKET_CHECKOUT,
+    payload: phones
+  });
 };
