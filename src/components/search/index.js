@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  searchPhone
+} from '../../actions';
 
 class Search extends Component {
 
@@ -14,6 +18,7 @@ class Search extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.searchPhone(this.state.value);
   }
 
   handleChange(event) {
@@ -47,4 +52,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default connect(null, { searchPhone })(Search);
