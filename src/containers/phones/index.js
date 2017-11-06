@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import R from 'ramda';
-import { fetchPhones, loadMorePhones } from '../../actions';
+import { fetchPhones, loadMorePhones, addPhoneToBasket } from '../../actions';
 import { getPhones } from '../../selectors';
 
 class Phones extends Component {
-
   componentDidMount() {
     this.props.fetchPhones();
   }
@@ -14,62 +13,58 @@ class Phones extends Component {
   renderPhone(phone, index) {
     const shortDescription = `${R.take(60, phone.description)}...`;
     return (
-      <div className='col-sm-4 col-lg-4 col-md-4 book-list' key={index}>
-        <div className='thumbnail'>
-          <img
-            className='img-thumbnail'
-            src={phone.image}
-            alt={phone.name}
-          />
+      <div className="col-sm-4 col-lg-4 col-md-4 book-list" key={index}>
+        <div className="thumbnail">
+          <img className="img-thumbnail" src={phone.image} alt={phone.name} />
         </div>
-        <div className='caption'>
-          <h4 className='pull-right'>
-            {phone.price}
-          </h4>
+        <div className="caption">
+          <h4 className="pull-right">{phone.price}</h4>
           <h4>
-            <Link to={`/phones/${phone.id}`}>
-              {phone.name}
-            </Link>
+            <Link to={`/phones/${phone.id}`}>{phone.name}</Link>
           </h4>
           <p>{shortDescription}</p>
 
-          <p className='itemButton'>
-            <button className='btn btn-primary'>
+          <p className="itemButton">
+            <button
+              onClick={() => this.props.addPhoneToBasket(phone.id)}
+              className="btn btn-primary"
+            >
               Buy Now!
             </button>
-            <Link to={`/phones/${phone.id}`} className='btn btn-default' style={{ marginLeft: '10px' }}>
+            <Link
+              to={`/phones/${phone.id}`}
+              className="btn btn-default"
+              style={{ marginLeft: '10px' }}
+            >
               More info
             </Link>
           </p>
-
         </div>
       </div>
     );
   }
 
   render() {
-    const { phones, loadMorePhones } = this.props;
+    const { phones } = this.props;
     console.log('phones: ', phones);
     return (
       <div>
-        <div className='books row'>
+        <div className="books row">
           {phones.map((phone, index) => this.renderPhone(phone, index))}
         </div>
-        <div className='row'>
-          <div className='col-md-12'>
+        <div className="row">
+          <div className="col-md-12">
             <button
-              onClick={loadMorePhones}
-              className='pull-right btn btn-primary'
+              onClick={this.props.loadMorePhones}
+              className="pull-right btn btn-primary"
             >
               Load More
             </button>
           </div>
         </div>
-
       </div>
     );
   }
-
 }
 
 const mapStateToProps = state => ({
@@ -78,5 +73,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   fetchPhones,
-  loadMorePhones
+  loadMorePhones,
+  addPhoneToBasket
 })(Phones);

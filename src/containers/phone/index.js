@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import R from 'ramda';
+
+import BasketCart from '../../components/basketCart';
 import {
-  fetchPhoneById
+  fetchPhoneById,
+  addPhoneToBasket
 } from '../../actions';
 import { getPhoneById } from '../../selectors';
 
@@ -65,15 +69,31 @@ class Phone extends Component {
           <p>{phone.description}</p>
         </div>
 
-
-
       </div>
     );
   }
 
   renderSidebar() {
+    const { phone } = this.props;
     return (
-      <div>Sidebar</div>
+      <div>
+        <p className='lead'>Quick shop</p>
+        <BasketCart />
+        <div className='form-group'>
+          <h1>{phone.name}</h1>
+          <h2>{phone.prince}</h2>
+        </div>
+        <Link to='/' className='btn btn-info btn-block'>
+          Back to store
+        </Link>
+        <button
+          type='button'
+          className='btn btn-success btn-block'
+          onClick={() => this.props.addPhoneToBasket(phone.id)}
+        >
+          Add to cart
+        </button>
+      </div>
     );
   }
 
@@ -86,7 +106,7 @@ class Phone extends Component {
             {phone && this.renderContent()}
           </div>
           <div className='col-md-3'>
-            {this.renderSidebar()}
+            {phone && this.renderSidebar()}
           </div>
         </div>
       </div>
@@ -100,4 +120,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchPhoneById })(Phone);
+export default connect(mapStateToProps, { fetchPhoneById, addPhoneToBasket })(Phone);

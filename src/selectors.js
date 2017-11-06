@@ -10,3 +10,16 @@ export const getPhones = state => {
 export const getRenderedPhonesLength = state => {
   return R.length(state.phonesPage.ids);
 };
+
+export const getTotalBasketCount = state => {
+  return R.length(state.basket);
+};
+
+export const getTotalBasketPrice = state => {
+  const totalPrice = R.compose(
+    R.sum,
+    R.pluck('price'),
+    R.map(id => getPhoneById(state, id))
+  )(state.basket);
+  return totalPrice;
+};
